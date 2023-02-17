@@ -1,9 +1,3 @@
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.Data;
-import lombok.experimental.Accessors;
-
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
@@ -11,16 +5,24 @@ import java.util.*;
 
 public class PsetAutmation {
     public static void main(String[] args) throws Exception {
+        String[] tempkey = new String[2];
+        String[] templink = new String[2];
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("Enter ApplicationInformation File Name: ");
         Scanner r = new Scanner(new File(reader.readLine()));
         String file_name = r.nextLine();
         System.out.println("ACCESS MATRIX FILE NAME: " + file_name);
         String app_url = r.nextLine();
+        templink = app_url.split(";");
+        app_url = templink[1].trim();
         System.out.println("APPLICATION BASE URL: " + app_url);
         String secret_key = r.nextLine();
+        tempkey = secret_key.split(";");
+        secret_key = tempkey[1].trim();
         System.out.println("SECRET KEY: " + secret_key);
         String client_key = r.nextLine();
+        tempkey = client_key.split(";");
+        client_key = tempkey[1].trim();
         System.out.println("CLIENT KEY: " + client_key);
 
         List<permissionset> permissionsetlist = new ArrayList<permissionset>();
@@ -106,17 +108,21 @@ public class PsetAutmation {
         out.close();
 
         //Setting Request Headers
-        try(BufferedReader br = new BufferedReader(
-                new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
+        try(BufferedReader br =
+                    new BufferedReader(new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
             StringBuilder response = new StringBuilder();
             String responseLine = null;
             while ((responseLine = br.readLine()) != null) {
                 response.append(responseLine.trim());
             }
             System.out.println(response.toString());
-            ObjectMapper object = new ObjectMapper();
-            token accesskey = object.readValue(response.toString(),token.class);
-            bearer_key = accesskey.getAccessToken();
+
+            String[] tempresponse = response.toString().split(":");
+            tempresponse = tempresponse[1].split(",");
+            String bear = tempresponse[0];
+            bear = bear.substring(1,bear.length());
+            bearer_key = bear.substring(0,bear.length()-1);
+            System.out.println("Bearer Key: " + bearer_key);
         }
 
         //Creating Permission Set
@@ -163,7 +169,6 @@ public class PsetAutmation {
         }
 
     } // end main
-
 } //end of PermissionSetAutomation class
 
 class permissionset {
@@ -209,16 +214,3 @@ class step{
     public String getStepid(){ return step_id;}
     public String getStepaccess(){ return step_access;}
 } //end of step class
-
-@Data
-@Accessors(chain = true)
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-class token {
-    private String accessToken;
-
-    private String tokenType;
-
-    private long expiresIn;
-
-    private String scope;
-}

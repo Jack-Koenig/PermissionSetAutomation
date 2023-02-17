@@ -1,6 +1,6 @@
-/Users/jackkoenig/IdeaProjects/PermissionSetAutomation/Permission Set Automation/src/[MAKE A COPY] Access Matrix Template - Access Matrix.csv
-https://release.logicgate.com
-INpcPHLFtqOeiNprC4vZ0UbrOeKPPX2e
-cmVsZWFzZTpldnpLVzFITjpFWFRFUk5BTA==
+File Location: /Users/jackkoenig/IdeaProjects/PermissionSetAutomation/Permission Set Automation/src/[MAKE A COPY] Access Matrix Template - Access Matrix.csv
+Risk Cloud Environment Link; https://release.logicgate.com
+Secret Key; INpcPHLFtqOeiNprC4vZ0UbrOeKPPX2e
+Client Key; cmVsZWFzZTpldnpLVzFITjpFWFRFUk5BTA==
 
 
