@@ -9,7 +9,7 @@ import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
-public class PermissionSetAutomation {
+public class PsetAutmation {
     public static void main(String[] args) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("Enter ApplicationInformation File Name: ");
