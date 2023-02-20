@@ -120,7 +120,7 @@ public class PsetAutmation {
             String[] tempresponse = response.toString().split(":");
             tempresponse = tempresponse[1].split(","); //Parsing JSON to get bearer key
             String bear = tempresponse[0];
-            bear = bear.substring(1,bear.length());
+            bear = bear.substring(1);
             bearer_key = bear.substring(0,bear.length()-1);
             System.out.println("Bearer Key: " + bearer_key);
         }
